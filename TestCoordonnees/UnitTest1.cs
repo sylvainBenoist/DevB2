@@ -86,6 +86,22 @@ namespace TestCoordonnees
 
             Assert.AreEqual(d,4109);
         }
+        /*
+        [TestMethod]
+        public void TestLongitudePositif()
+        {
+            var test = new Coordonnees(-48.40, 4.48, "brest");
+            var test2 = new Coordonnees(-14.92, 23.49, "cap-vert");
+
+            double a = test.FormuleHaversine(test,test2);
+            double c = test.CalculDistanceAngRadian(a);
+            var d = test.CalculDistanceTotal(c);
+
+            Assert.ThrowsException<IndexOutOfRangeException>(()=> test.CalculDistanceAngRadian(a));
+           
+        }
+        */
+
 
     }
 
