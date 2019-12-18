@@ -86,6 +86,15 @@ namespace TestCoordonnees
 
             Assert.AreEqual(d,4109);
         }
+
+        [TestMethod]
+        public void TestAffichageDesDonnees()
+        {
+
+
+
+        }
+
         /*
         [TestMethod]
         public void TestLongitudePositif()

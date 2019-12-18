@@ -10,13 +10,16 @@ namespace DevB2
     {
         static void Main(string[] args)
         {
+
+
             // Déclaration des tb
             List<Coordonnees> tbCoord = new List<Coordonnees>();
             List<String> tbDistances = new List<String>();
             List<String> RecuPHP = new List<string>();
 
             // TEST de ARGS
-            string fake1 = "Miami,5,-9";
+            /*
+            string fake1 = "Miami,5.5,-9";
             string fake2 = "Porto,8,-15";
             string fake3 = "Bordeaux,5,-95";
             string fake4 = "London,10,15";
@@ -28,15 +31,23 @@ namespace DevB2
             fakeArgs.Add(fake4);
 
             string[] fakeArrayArgs = fakeArgs.ToArray();
+            */
 
+            // Fin declaration test
 
-            // 
+            string [] recupArgs;
 
-            for (int i = 0; i < fakeArrayArgs.Length; i++)
+            if (args.Length != 0)
             {
-                RecuPHP.Add(fakeArrayArgs[i]);
-            }
+                string recu = args[0];
+                recupArgs = recu.Split('/');
+                for (int i = 0; i < recupArgs.Length; i++)
+                {
+                    RecuPHP.Add(recupArgs[i]);
+                }
 
+            }
+            
             List<String> info2 = new List<string>();
 
             // Création des obj coordonnees
@@ -77,11 +88,7 @@ namespace DevB2
                     retourPhp += i_coordonnees.getName() + "-" + j_coordonnes.getName() + "," + distances + ";";
                 }
             }
-
             Console.Write(retourPhp);
-
-            Console.Read();
-
         }
     }
 }
