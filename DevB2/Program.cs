@@ -46,12 +46,54 @@ namespace DevB2
             //Console.WriteLine(tbCoord.Count);
 
             List<String> RecuPHP = new List<string>();
+            /*
             var recupPhpTest = "Brest,10.5,-25";
             var recupPhpTest2 = "Cork,125,-248";
             var recupPhpTest3 = "Miami,25,-80";
-            RecuPHP.Add(recupPhpTest);
-            RecuPHP.Add(recupPhpTest2);
+            var recupPhpTest4 = "Miami,25,-80";
+            var recupPhpTest5 = "Miami,25,-80";
+            var recupPhpTest6 = "Miami,25,-80";
+            var recupPhpTest7 = "Miami,25,-80";
+            var recupPhpTest8 = "Miami,25,-80";
+            var recupPhpTest9 = "Miami,25,-80";
+            var recupPhpTest10 = "Miami,25,-80";
+            var recupPhpTest11 = "Miami,25,-80";
+            */
+            // Test de la reception string arg 
+
+            string argString = "Miami,10.5,-25/NewYork,125,-248/Cork,56,-20";
+            /*
+            if(args != null)
+            {
+                string argPhp = args[0];
+            }
+            */
+            //List<String> parseStringArg = new List<string>();
+
+            string[] parseStringArg = argString.Split('/');
+
+            for (int i = 0; i < parseStringArg.Length; i++)
+            {
+                RecuPHP.Add(parseStringArg[i]);
+            }
+
+            // RecuPHP.Add(recupPhpTest);
+
+            // RecuPHP.Add(recupPhpTest2);
+            /*
             RecuPHP.Add(recupPhpTest3);
+            RecuPHP.Add(recupPhpTest4);
+            RecuPHP.Add(recupPhpTest5);
+            RecuPHP.Add(recupPhpTest6);
+            RecuPHP.Add(recupPhpTest7);
+            RecuPHP.Add(recupPhpTest8);
+            RecuPHP.Add(recupPhpTest9);
+            RecuPHP.Add(recupPhpTest10);
+            RecuPHP.Add(recupPhpTest11);
+            */
+
+
+
 
             // Coordonnees port2 = new Coordonnees();
 
@@ -68,55 +110,52 @@ namespace DevB2
 
                 double iLat = Double.Parse(info[1]);
 
-
-                decimal iLatD = Convert.ToDecimal(info[1]);
-                // double iLat = Convert.ToDouble(iLatD);
                 double iLon = Convert.ToDouble(info[2]);
 
                 Coordonnees port1 = new Coordonnees(iLat, iLon, info[0]);
                 tbCoord.Add(port1);
             }
 
-            
+            string retourPhp = "";
+
             for (int i = 0; i < tbCoord.Count;)
             {
                 var i_coordonnees = tbCoord[i];
 
                 for (int j = 0; j < tbCoord.Count;)
                 {
-                    if (j == i) 
-                    { 
+
+                    if (j == i)
+                    {
                         j++;
                     }
-                    if (j == 3)     // TODO j == fin de la liste 
-                    { 
-                        break; 
+                    if (j == tbCoord.Count)
+                    {
+                        break;
                     }
 
                     var j_coordonnes = tbCoord[j];
-
                     double b = j_coordonnes.FormuleHaversine(i_coordonnees, j_coordonnes);
                     double f = j_coordonnes.CalculDistanceAngRadian(b);
                     double dist = j_coordonnes.CalculDistanceTotal(f);
                     dist = Math.Round(dist, 2);
 
                     string distances = Convert.ToString(dist);
-                    tbDistances.Add(i_coordonnees.getName() + " " + j_coordonnes.getName() + " " + distances);
+                    retourPhp += i_coordonnees.getName() + "-" + j_coordonnes.getName() + "," + distances + ";";
                     j++;
                 }
-
                 i++;
             }
 
+            /*
             for (int i = 0; i < tbDistances.Count; i++)
             {
                 var t_est = tbDistances[i];
                 Console.WriteLine(t_est);
             }
-
-            /*      FOR DANS LE FOR 
-            
             */
+
+            Console.Write(retourPhp);
 
             Console.Write(tbDistances.Count);
             /*
