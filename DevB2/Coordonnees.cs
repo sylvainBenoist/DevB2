@@ -25,9 +25,7 @@ namespace DevB2
         // Permet de convertir un degree en Radian
         public double TranslateLatToRadius(double lat)
         {
-            double lat1 = Convert.ToDouble(lat);
-            var a = (lat1 * Math.PI) / 180;
-            return a;
+            return (lat * Math.PI) / 180;
         }
 
         public double getLat()
@@ -45,13 +43,13 @@ namespace DevB2
             return this.nom;
         }
 
-        public double FormuleHaversine(Coordonnees p1, Coordonnees p2)
+        public double FormuleHaversine(Coordonnees p2)
         {
             // Recup des coordonnees
-            var lat1 = p1.lattitude;
+            var lat1 = this.lattitude;
             var lat2 = p2.lattitude;
 
-            var lon1 = p1.longitude;
+            var lon1 = this.longitude;
             var lon2 = p2.longitude;
 
             double x1 = TranslateLatToRadius(lat1);
@@ -71,16 +69,12 @@ namespace DevB2
 
         public double CalculDistanceAngRadian(double a)
         {
-            double c;
-           // a = Math.Round(a, 2);
-            c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            return c;
+            return 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
         }
 
         public double CalculDistanceTotal(double c)
         {
-            double distance = _RADIUSEARTH_ * c;
-            return distance;
+            return _RADIUSEARTH_ * c;
         }
 
     }

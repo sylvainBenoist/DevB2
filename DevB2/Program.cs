@@ -10,12 +10,14 @@ namespace DevB2
     {
         static void Main(string[] args)
         {
-
-
-            // Déclaration des tb
+            // Déclaration variables
             List<Coordonnees> tbCoord = new List<Coordonnees>();
             List<String> tbDistances = new List<String>();
             List<String> RecuPHP = new List<string>();
+            List<String> info2 = new List<string>();
+
+            string retourPhp = "";
+
 
             // TEST de ARGS
             /*
@@ -35,7 +37,7 @@ namespace DevB2
 
             // Fin declaration test
 
-            string [] recupArgs;
+            string[] recupArgs;
 
             if (args.Length != 0)
             {
@@ -47,29 +49,21 @@ namespace DevB2
                 }
 
             }
-            
-            List<String> info2 = new List<string>();
-
             // Création des obj coordonnees
             for (int i = 0; i < RecuPHP.Count; i++)
             {
                 string donnees = RecuPHP[i];
-
                 string[] info = donnees.Split(',');
 
                 // Permet de split le string en decimal (car on utilise des "." pour separateur et que double.parse est "," par def en FR )
                 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-EN");
 
                 double iLat = Double.Parse(info[1]);
-
                 double iLon = Convert.ToDouble(info[2]);
 
                 Coordonnees port1 = new Coordonnees(iLat, iLon, info[0]);
                 tbCoord.Add(port1);
             }
-
-            string retourPhp = "";
-
 
             // Calcul et incrementation de la string de retour
             for (int i = 0; i < tbCoord.Count; i++)
@@ -79,7 +73,7 @@ namespace DevB2
                 for (int j = i + 1; j < tbCoord.Count; j++)
                 {
                     var j_coordonnes = tbCoord[j];
-                    double b = j_coordonnes.FormuleHaversine(i_coordonnees, j_coordonnes);
+                    double b = j_coordonnes.FormuleHaversine(i_coordonnees);
                     double f = j_coordonnes.CalculDistanceAngRadian(b);
                     double dist = j_coordonnes.CalculDistanceTotal(f);
                     dist = Math.Round(dist, 2);
@@ -88,7 +82,8 @@ namespace DevB2
                     retourPhp += i_coordonnees.getName() + "-" + j_coordonnes.getName() + "," + distances + ";";
                 }
             }
-            Console.Write(retourPhp);
+
+            TestAffichage.Afficher(retourPhp);
         }
     }
 }

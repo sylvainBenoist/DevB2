@@ -8,6 +8,6 @@ namespace DevB2
 {
     public interface ITestAffichage
     {
-        void afficher(string Iretour);
+        void Afficher(string Iretour);
     }
 }

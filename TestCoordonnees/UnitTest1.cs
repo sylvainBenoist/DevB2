@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DevB2;
+using NSubstitute;
 
 namespace TestCoordonnees
 {
@@ -33,7 +34,7 @@ namespace TestCoordonnees
             var test = new Coordonnees(10, 12, "portTest");
             var test2 = new Coordonnees(15, 12, "portTest2");
 
-            var a = test.FormuleHaversine(test, test2);
+            var a = test.FormuleHaversine(test2);
 
             a = Math.Round(a,2);
 
@@ -76,7 +77,7 @@ namespace TestCoordonnees
             var test = new Coordonnees(48.40, -4.48, "brest");
             var test2 = new Coordonnees(14.92, -23.49, "cap-vert");
 
-            double a = test.FormuleHaversine(test, test2);
+            double a = test.FormuleHaversine(test2);
 
             double c = test.CalculDistanceAngRadian(a);
 
@@ -90,26 +91,42 @@ namespace TestCoordonnees
         [TestMethod]
         public void TestAffichageDesDonnees()
         {
+            var test = new Coordonnees(48.40, -4.48, "1");
+            var test2 = new Coordonnees(14.92, -23.49, "2");
 
+            double a = test.FormuleHaversine(test2);
 
+            double c = test.CalculDistanceAngRadian(a);
+
+            var d = test.CalculDistanceTotal(c);
+
+            d = Math.Round(d, 0);
+            string retour = "";
+
+            ITestAffichage media = Substitute.For<ITestAffichage>();
+            TestAffichage.Fake = "oui";
+            media.Afficher(retour);
+
+            media.Received(1).Afficher("");
 
         }
 
-        /*
+        
         [TestMethod]
         public void TestLongitudePositif()
         {
             var test = new Coordonnees(-48.40, 4.48, "brest");
             var test2 = new Coordonnees(-14.92, 23.49, "cap-vert");
 
-            double a = test.FormuleHaversine(test,test2);
+            double a = test.FormuleHaversine(test2);
             double c = test.CalculDistanceAngRadian(a);
             var d = test.CalculDistanceTotal(c);
 
-            Assert.ThrowsException<IndexOutOfRangeException>(()=> test.CalculDistanceAngRadian(a));
+            Assert.AreEqual(d, 25);
            
         }
-        */
+
+       // Assert.ThrowsException<IndexOutOfRangeException>(()=> test.CalculDistanceAngRadian(a));
 
 
     }
